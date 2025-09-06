@@ -2,6 +2,7 @@
   "dependencies": {
     "framer-motion": "^12.23.12",
     "googleapis": "^159.0.0",
+    "lucide-react": "^0.542.0",
     "tailwindcss": "^4.1.13"
   }
 }
