@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📌 Lộ trình làm Website Trung tâm Tiếng Nhật Quang Dũng
+Bước 1. Chuẩn bị
 
-## Getting Started
+Xác định mục tiêu: Website giới thiệu trung tâm, khóa học, giảng viên, testimonial học viên, tin tức, liên hệ.
 
-First, run the development server:
+Chọn theme màu: Xanh dương + đen + tone tối (như anh đã quyết).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Chuẩn bị Google Sheets:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sheet Courses → (Tên, cấp độ, học phí, thời lượng, link đăng ký).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Sheet Teachers → (Tên, ảnh, chuyên môn, tiểu sử).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Sheet Testimonials → (Tên, ảnh, feedback).
 
-## Learn More
+Sheet News → (Tiêu đề, mô tả ngắn, link chi tiết).
 
-To learn more about Next.js, take a look at the following resources:
+👉 Em có thể giúp anh soạn file Google Sheets mẫu.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Bước 2. Cấu trúc dự án (Next.js)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Tạo project:
 
-## Deploy on Vercel
+npx create-next-app@latest quangdung-center
+cd quangdung-center
+npm install tailwindcss framer-motion googleapis
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Cấu trúc thư mục:
+
+/app
+  /components
+    Header.tsx
+    Footer.tsx
+    CourseCard.tsx
+    TeacherCard.tsx
+    TestimonialCard.tsx
+  /pages
+    /api
+      courses.ts
+      teachers.ts
+      testimonials.ts
+      news.ts
+    index.tsx (Trang chủ)
+    courses.tsx (Khóa học)
+    teachers.tsx (Giảng viên)
+    testimonials.tsx (Cảm nhận)
+    news.tsx (Tin tức)
+    contact.tsx (Liên hệ)
+
+Bước 3. Kết nối Google Sheets
+
+Tạo Google Cloud Project, bật API Google Sheets.
+
+Tạo Service Account → copy client_email và private_key.
+
+Share Google Sheet cho email đó với quyền Viewer.
+
+Viết API route /api/courses, /api/teachers… để fetch data (mẫu code em đã viết ở trên).
+
+Bước 4. Giao diện (Frontend)
+
+Dùng TailwindCSS + Framer Motion để dựng UI:
+
+Header: logo, menu (Trang chủ, Khóa học, Giảng viên, Feedback, Tin tức, Liên hệ).
+
+Hero Section: banner + slogan (“Đồng hành cùng bạn chinh phục tiếng Nhật”).
+
+Khóa học: card động (fetch từ Google Sheets).
+
+Giảng viên: lưới (grid) hiển thị giảng viên.
+
+Feedback học viên: carousel testimonial.
+
+Tin tức: danh sách bài viết từ sheet.
+
+Footer: thông tin liên hệ, hotline, mạng xã hội.
+
+Bước 5. Tối ưu trải nghiệm
+
+Responsive mobile/tablet/desktop.
+
+SEO (thẻ meta, OpenGraph, sitemap).
+
+Tích hợp Form đăng ký tư vấn → gửi email (hoặc lưu vào Google Sheets).
+
+Bước 6. Triển khai
+
+Deploy frontend + backend lên Vercel (Next.js rất hợp).
+
+Dùng .env.local để bảo mật key Google Sheets API.
+
+Bước 7. Mở rộng (sau này)
+
+Nếu trung tâm lớn:
+
+Tích hợp thanh toán online (VNPay, Momo).
+
+Quản lý học viên (dashboard mini).
+
+CMS nâng cấp (Strapi/Supabase) thay Google Sheets.
+
+App học online (nối từ backend).
+
+👉 Vậy lộ trình cơ bản sẽ đi theo 7 bước trên.
+
+Anh muốn em soạn ngay Google Sheets mẫu (Courses, Teachers, Testimonials, News) cho Quang Dũng nhập thử dữ liệu trước, hay mình bắt đầu code luôn với Next.js base + kết nối Sheets?
